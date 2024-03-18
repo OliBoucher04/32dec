@@ -4,7 +4,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from './pages/Home'
+import Home from './pages/Home';
+import Login from './pages/Login';
 
 const App = () => {
   const routes = [
@@ -14,11 +15,15 @@ const App = () => {
       children: [
         { 
           index: true,
-          element: <Navigate to='home' replace/>
+          element: <Navigate to='login' replace/>
         },
         {
           path: 'home',
           element: <Home />
+        },
+        {
+          path: 'login',
+          element: <Login />
         }
       ]
     },

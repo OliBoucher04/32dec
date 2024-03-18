@@ -1,10 +1,12 @@
 import React from "react";
+import { windowsXp } from "../assets";
 
 const Layout = () => {
   return (
-    <div>
-        Ceci est un test
-    </div>
+    <>
+        <img src={windowsXp} alt="fondEcran" className="fixed"/>
+
+    </>
   );
 };
 
