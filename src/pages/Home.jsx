@@ -19,6 +19,7 @@ const Home = () => {
   };
 
 
+
   const handleVerification = () => {
     setPasswordValid(password === selectedElement.code);
     if (passwordValid) {
@@ -36,7 +37,7 @@ const Home = () => {
     console.log('le password est au départ' + passwordValid);
     setSelectedElement(element)
     setIsOpen(!isOpen);
-    // handleVerification();
+    handleVerification();
   }
 
   const { id, folderid } = useParams();
@@ -48,15 +49,6 @@ const Home = () => {
         alt="fondEcran"
         className="fixed -z-[50] h-screen object-cover w-screen"
       />
-      <div className='handle relative p-10'>
-        <div className='handle relative max-w-64'>
-          <img src={imgPage} alt="iconPage" draggable='false' className='max-w-6 absolute left-1' />
-          <img src={imgX} alt="iconX" draggable='false' className='max-w-6 absolute right-0' />
-          <div className='size-64 bg-amber-50 border-4 border-t-[24px] border-blue-700 rounded'>
-            <p>*******</p>
-          </div>
-        </div>
-      </div>
 
       <div className='w-screen h-screen p-10'>
         {dataElements.map((element, index) => (
@@ -105,7 +97,6 @@ const Home = () => {
             <img src={imgPage} alt="iconPage" draggable='false' className='max-w-6 absolute left-1' />
             <img src={imgX} alt="iconX" onClick={openPopup} draggable='false' className='max-w-6 absolute right-0 cursor-pointer' />
             <div className='size-64 bg-amber-50 border-4 border-t-[24px] border-blue-700 rounded'>
-              {/* <p>{selectedElement.video}</p>*/}
               <div className="input-container mb-8 mt-12">
                 <input
                   onChange={handleInputChange}
