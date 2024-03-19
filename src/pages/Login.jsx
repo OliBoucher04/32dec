@@ -1,20 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
-import { AiFillLock } from "react-icons/ai";
-import { AiFillUnlock } from "react-icons/ai";
-
+import { AiFillLock, AiFillUnlock } from "react-icons/ai";
+import { postitLogin } from "../assets";
+import { BsPersonCircle } from "react-icons/bs";
 
 const Login = () => {
   const [password, setPassword] = useState("");
 
-  const isPasswordInvalid = password.trim() === "";
+  const handleInputChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const passwordValid = password === '9544238';
 
   return (
     <section className="flex flex-col justify-center items-center h-screen">
-      <div class="input-container mb-8">
+      <BsPersonCircle className="text-8xl text-red"/>
+      <div className="input-container mb-8 mt-12">
         <input
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleInputChange}
           value={password}
           type="password"
           name="text"
@@ -23,24 +28,22 @@ const Login = () => {
         />
       </div>
 
-      {isPasswordInvalid ? (
-        <>
-          <div class="btn-container-disabled">
-            <a class="btn-content" href="#">
-              <AiFillLock className="h-[30px]"/>
-            </a>
-          </div>
-        </>
-      ) : (
+      {passwordValid ? (
         <Link to="/home">
-          <div class="btn-container">
-            <div class="btn-content flex justify-center items-center relative transition-all" href="#">
-              <AiFillLock className="h-[30px] hover:hidden"/>
-              <AiFillUnlock className="h-[30px]"/>
+          <div className="btn-container">
+            <div className="btn-content flex justify-center items-center relative transition-all">
+              <AiFillUnlock className="h-[30px]" />
             </div>
           </div>
         </Link>
+      ) : (
+        <div className="btn-container-disabled">
+          <a className="btn-content" href="#">
+            <AiFillLock className="h-[30px]" />
+          </a>
+        </div>
       )}
+      <img src={postitLogin} alt="postit" className="absolute bottom-10 right-10" />
     </section>
   );
 };

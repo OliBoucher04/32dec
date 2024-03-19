@@ -1,4 +1,5 @@
 import windowsXp from './img/windowsXP.jpg'
+import postitLogin from './img/postit.png'
 import imgVideo from './img/video.png'
 import imgX from './img/x.png'
 import imgCadenas from './img/cadenas.png'
@@ -11,6 +12,7 @@ import testSVG from './img/svgTest.svg'
 
 export {
     windowsXp,
+    postitLogin,
     imgVideo,
     imgX,
     imgCadenas,
