@@ -4,7 +4,7 @@
       "video": "video1",
       "code": "123456",
       "photo": "photo1",
-      "unlocked": false
+      "unlocked": true
     },
     {
       "id": 2,
