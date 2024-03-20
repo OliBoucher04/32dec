@@ -25,12 +25,33 @@ const Home = () => {
     setPassword(e.target.value);
   };
 
+  // const handleVerification = () => {
+  //   if (password === selectedElement.code) {
+  //     setPassword("");
+  //     const updatedFolders = folders.map((element) => {
+  //       if (element.id === selectedElement.id) {
+  //         const newSelectedElement = { ...element, unlocked: true };
+  //         setSelectedElement(newSelectedElement);
+  //         return newSelectedElement;
+  //       }
+  //       return element;
+  //     });
+  //     setFolders(updatedFolders);
+  //     setIsOpen(false);
+  //     setIsOpenVideo(true);
+  //   }
+  // };
+
   const handleVerification = () => {
-    if (password === selectedElement.code) {
+    const selectedAnswer = document.querySelector(
+      'input[name="choix"]:checked'
+    ).value;
+
+    if (selectedAnswer === selectedElement.reponse) {
       setPassword("");
       const updatedFolders = folders.map((element) => {
         if (element.id === selectedElement.id) {
-          const newSelectedElement = { ...element, unlocked: true }
+          const newSelectedElement = { ...element, unlocked: true };
           setSelectedElement(newSelectedElement);
           return newSelectedElement;
         }
@@ -39,6 +60,7 @@ const Home = () => {
       setFolders(updatedFolders);
       setIsOpen(false);
       setIsOpenVideo(true);
+      handleCadenas(selectedElement);
     }
   };
 
@@ -51,16 +73,49 @@ const Home = () => {
     }
   };
 
+  // const handleCadenas = (element) => {
+  //   const index = element.id - 1;
+  //   const nextIndex = index + 1;
+  //   if (nextIndex < folders.length) {
+  //     const updatedFolders = [...folders];
+  //     updatedFolders[nextIndex].cadenas = false;
+  //     setFolders(updatedFolders);
+  //   }
+  // };
+
+  // const handleCadenas = (element) => {
+  //   const index = element.id - 1;
+  //   const nextIndex = index + 1;
+  
+  //   if (nextIndex < folders.length) {
+  //     const updatedFolders = folders.map((folder, i) => {
+  //       if (i === nextIndex) {
+  //         return { ...folder, cadenas: false };
+  //       }
+  //       return folder;
+  //     });
+  
+  //     setFolders(updatedFolders);
+  //   }
+  // };
+
   const handleCadenas = (element) => {
     const index = element.id - 1;
-    const nextIndex = index + 1; 
+    const nextIndex = index + 1;
+  
     if (nextIndex < folders.length) {
-      const updatedFolders = [...folders]; 
-      updatedFolders[nextIndex].cadenas = false; 
+      const updatedFolders = folders.map((folder, i) => {
+        if (i === nextIndex) {
+          const newCadenasValue = { ...folder, cadenas: false };
+          return newCadenasValue;
+        }
+        return folder;
+      });
+  
       setFolders(updatedFolders);
     }
   };
-
+  
 
   return (
     <section className="w-screen overflow-hidden h-screen flex flex-row-reverse justify-between items-start relative">
@@ -82,7 +137,12 @@ const Home = () => {
             scale={1}
           >
             <div className="max-w-16 h-16 flex m-2">
-              <div className={`handle ${element.cadenas ? 'cursor-not-allowed' : 'cursor-pointer'}`} onDoubleClick={() => !element.cadenas && openPopup(element)}>
+              <div
+                className={`handle ${
+                  element.cadenas ? "cursor-not-allowed" : "cursor-pointer"
+                }`}
+                onDoubleClick={() => !element.cadenas && openPopup(element)}
+              >
                 <img
                   src={imgDossier}
                   alt="dossier"
@@ -121,14 +181,35 @@ const Home = () => {
             />
             <div className="size-64 bg-amber-50 border-4 border-t-[24px] border-blue-700 rounded">
               <div className="input-container mb-8 mt-12">
-                <input
+                {/* <input
                   onChange={handleInputChange}
                   value={password}
                   type="text"
                   name="text"
                   className="input"
                   placeholder="***************"
+                /> */}
+                <input
+                  type="radio"
+                  id="choix1"
+                  name="choix"
+                  value={selectedElement.choix1}
                 />
+                <label htmlFor="choix1">choix1 </label>
+                <input
+                  type="radio"
+                  id="choix2"
+                  name="choix"
+                  value={selectedElement.choix2}
+                />
+                <label htmlFor="choix2">choix2 </label>
+                <input
+                  type="radio"
+                  id="choix3"
+                  name="choix"
+                  value={selectedElement.choix3}
+                />
+                <label htmlFor="choix3">choix3 </label>
               </div>
               <button onClick={handleVerification}>Verifier</button>
             </div>
