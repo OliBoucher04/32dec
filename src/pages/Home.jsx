@@ -30,27 +30,37 @@ const Home = () => {
       setPassword("");
       const updatedFolders = folders.map((element) => {
         if (element.id === selectedElement.id) {
-          return { ...element, unlocked: true };
+          const newSelectedElement = { ...element, unlocked: true }
+          setSelectedElement(newSelectedElement);
+          return newSelectedElement;
         }
         return element;
       });
       setFolders(updatedFolders);
       setIsOpen(false);
-      setIsOpenVideo(true); // Ouvre la vidéo dès que le code est vérifié avec succès
+      setIsOpenVideo(true);
     }
   };
 
   const openPopup = (element) => {
     setSelectedElement(element);
-    setIsOpen(!element.unlocked); // Ouvre le popup seulement si le dossier est verrouillé
-    setIsOpenVideo(element.unlocked)
+    setIsOpen(!element.unlocked);
+    setIsOpenVideo(element.unlocked);
     if (element.unlocked) {
-      // Si le dossier est déverrouillé, affiche directement la vidéo
-      // handleVerification();
+      handleCadenas(element);
     }
   };
 
-  const { id, folderid } = useParams();
+  const handleCadenas = (element) => {
+    const index = element.id - 1;
+    const nextIndex = index + 1; 
+    if (nextIndex < folders.length) {
+      const updatedFolders = [...folders]; 
+      updatedFolders[nextIndex].cadenas = false; 
+      setFolders(updatedFolders);
+    }
+  };
+
 
   return (
     <section className="w-screen overflow-hidden h-screen flex flex-row-reverse justify-between items-start relative">
@@ -59,7 +69,7 @@ const Home = () => {
         alt="fondEcran"
         className="fixed -z-[50] h-screen object-cover w-screen"
       />
-
+      {/*FOLDERS*/}
       <div className="w-screen h-screen p-10">
         {folders.map((element, index) => (
           <Draggable
@@ -72,13 +82,20 @@ const Home = () => {
             scale={1}
           >
             <div className="max-w-16 h-16 flex m-2">
-              <div className="handle" onDoubleClick={() => openPopup(element)}>
+              <div className={`handle ${element.cadenas ? 'cursor-not-allowed' : 'cursor-pointer'}`} onDoubleClick={() => !element.cadenas && openPopup(element)}>
                 <img
                   src={imgDossier}
                   alt="dossier"
                   draggable="false"
-                  className=" text-amber-300 text-6xl folder absolute top-0 left-0 cursor-pointer"
+                  className="text-6xl folder absolute top-0 left-0"
                 />
+                {element.cadenas && (
+                  <img
+                    src={imgCadenas}
+                    alt="cadenas"
+                    className="z-[100] w-full h-full absolute top-0 left-0"
+                  />
+                )}
               </div>
             </div>
           </Draggable>
